@@ -1,0 +1,72 @@
+namespace App\Http\Controllers;
+
+class TestController {
+    protected array $non_var;
+    private int $task_count;
+    private string $author_name;
+
+    public function getTaskCount(): int
+    {
+        return $this->task_count;
+    }
+
+    public function setTaskCount(int $task_count): void
+    {
+        $this->task_count = $task_count;
+    }
+
+    public function getAuthorName(): string
+    {
+        return $this->author_name;
+    }
+
+    public function setAuthorName(string $author_name): void
+    {
+        $this->author_name = $author_name;
+    }
+
+    protected function isAuthor(string $author_name): bool
+    {
+        return $this->author_name === $author_name;
+    }
+}
+
+class ExamController extends TestController {
+    protected array $non_var = [
+        'foo' => 1, 'bar' => 2,
+    ];
+
+    public function setAuthorName(string $author_name): void
+    {
+        parent::setAuthorName('Exam author is: ' . $author_name);
+    }
+
+    public function saveResult(): bool
+    {
+        // result save cool code
+        return true;
+    }
+}
+
+class AttestationController extends TestController {
+    private int $att_points;
+    
+    public function setAttPoints(int $att_points): void
+    {
+        $this->att_points = $att_points;
+    }
+
+    public function getAttPoints(): int
+    {
+        return $this->att_points;
+    }
+
+    protected array $non_var = [
+        'baz' => 1, 'tmp' => 2
+    ];
+
+    public function setAuthorName(string $author_name): void
+    {
+        parent::setAuthorName('Attestation author is: ' . $author_name);
+    }
+}
